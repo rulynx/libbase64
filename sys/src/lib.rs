@@ -1,3 +1,5 @@
+#![warn(missing_docs)]
+#![deny(missing_docs)]
 #![allow(
     unused,
     unused_imports,

@@ -18,11 +18,36 @@
 //! ```
 #![allow(non_camel_case_types)]
 
+/// # [`base64_encodestep`]
+/// =======================
+/// 
+/// ## Metadata
+/// 
+/// |  **Meta Key**  |  **Meta Value**       |
+/// |----------------|-----------------------|
+/// |  **Name:**     | [`base64_encodestep`] |
+/// |  **Type:**     | `enum`, repr(C)       |
+/// |  **Since:**    | 0.1.0                 |
+/// |  **Traits**    |                       |
+/// |                |  **Derive**           |
+/// |                | - [`Debug`]           |
+/// |                | - [`Clone`]           |
+/// |                | - [`Copy`]            |
+/// |  **Category**  | safe                  |
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub enum base64_encodestep {
+    /// # [`base64_encodestep::step_A`]
+    /// 
+    /// Enum member of [`base64_encodestep`]
     step_A,
+    /// # [`base64_encodestep::step_B`]
+    /// 
+    /// Enum member of [`base64_encodestep`]
     step_B,
+    /// # [`base64_encodestep::step_C`]
+    /// 
+    /// Enum member of [`base64_encodestep`]
     step_C,
 }
 
