@@ -29,17 +29,29 @@
 extern crate libc;
 
 #[cfg(
-    all(
-        feature = "encode",
-        not(feature = "prelude")
+    any(
+        all(
+            feature = "encode",
+            not(feature = "prelude"),
+        ),
+        all(
+            feature = "encode",
+            feature = "prelude"
+        )
     )
 )]
 pub mod encode;
 
 #[cfg(
-    all(
-        feature = "decode",
-        not(feature = "prelude")
+    any(
+        all(
+            feature = "decode",
+            not(feature = "prelude"),
+        ),
+        all(
+            feature = "decode",
+            feature = "prelude"
+        )
     )
 )]
 pub mod decode;
@@ -64,13 +76,13 @@ pub(crate) mod decode;
 pub mod prelude {
     //! # [`crate::prelude`]
     //! 
-    //! This Sub modul imports all Functions, Structs, Enums and co
-    //! In a Prelude, which you can import easier.
+    //! This submodule imports all functions, structs, enums, and other items
+    //! into a prelude, which you can import more easily.
     //! 
     //! # Example
     //! 
     //! ```rust
-    //! use libbase64_sys::prelude;
+    //! use libbase64_sys::prelude::*;
     //! ```
     pub use crate::encode::*;
     pub use crate::decode::*;
