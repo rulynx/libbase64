@@ -1,3 +1,2 @@
 target
-build
 *.{o,so,dll,dylib,o,rlib,a,c,h}
