@@ -6,6 +6,13 @@ exclude = [
     "./b64-referenz",
 ]
 
+[features]
+prelude = []
+prelude_root = ["prelude"]
+encode = []
+decode = []
+default = ["prelude"]
+
 [lib]
 crate-type = ["dylib", "staticlib", "rlib"]
 

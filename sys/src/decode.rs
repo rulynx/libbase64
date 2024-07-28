@@ -16,3 +16,7 @@
 //! ```rust
 //! use libbase64_sys::decode;
 //! ```
+#![allow(
+    non_camel_case_types,
+    missing_docs
+)]
