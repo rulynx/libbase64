@@ -1,9 +1,12 @@
+cargo-features = ["profile-rustflags"]
+
 [package]
 name = "libbase64"
-description = "A full and safe Rust API Wrapper arround libbase64-sys"
+description = "An Full and Safe Wrapper Arround libbase64-sys"
 authors = ["Kevin Alexander Krefting <alexgame314@outlook.com>"]
 repository = "https://github.com/rulynx/libbase64"
-license = "Public Domain"
+license = "MIT"
+readme = "./README.md"
 keywords = ["base64", "ffi", "binding", "c", "sys"]
 version = "0.1.0-alpha.0"
 edition = "2021"
@@ -12,7 +15,53 @@ edition = "2021"
 resolver = "2"
 members = [
     "sys",
+    "derive",
 ]
+
+[features]
+dev = ["full-nightly"]
+dev_prelude = ["dev"]
+default = ["dev"]
+encode = []
+decode = []
+traits = []
+derive = ["traits"]
+prelude = []
+prelude_root = ["prelude"]
+sys_use = []
+unsafe = []
+unstable = ["unsafe", "sys_use"]
+full-stable = ["encode", "decode", "traits", "derive", "prelude", "prelude_root"]
+full-nightly = ["full-stable", "unsafe", "sys_use"]
+
+[lib]
+crate-type = ["dylib", "staticlib", "rlib"]
 
 [dependencies]
 libbase64-sys = { version = "0.1.0-alpha.0", path = "./sys" }
+libbase64-derive = { version = "0.0.0", path = "./derive" }
+libc = "0.2.155"
+
+[profile.dev]
+opt-level = 0
+lto = false
+overflow-checks = true
+rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
+
+[profile.test]
+opt-level = 1
+lto = false
+overflow-checks = true
+rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
+
+[profile.release]
+opt-level = 3
+lto = true
+overflow-checks = false
+rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
+
+[profile.bench]
+opt-level = 2
+lto = true
+overflow-checks = true
+rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
