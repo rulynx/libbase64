@@ -6,8 +6,8 @@ pub use kind::{DecodeKind, EncodeKind};
 
 #[derive(Debug, Clone, Default)]
 pub struct EncodeError {
-    msg: Vec<u8>,
-    kind: EncodeKind,
+    pub(crate) msg: Vec<u8>,
+    pub(crate) kind: EncodeKind,
 }
 
 impl EncodeError {
@@ -22,13 +22,20 @@ impl EncodeError {
     #[inline]
     pub fn new_from_code(code: isize) -> EncodeError {
         let kind = EncodeKind::from(code);
-        let msg = kind.msg.clone().unwrap_or("An Error was Found".as_bytes().to_vec());
+        let msg = kind.msg.clone().unwrap_or("Can't convert to base64".as_bytes().to_vec());
         EncodeError { msg, kind }
     }
 
     #[inline]
     pub fn new_from_kind(kind: EncodeKind) -> EncodeError {
-        let msg = kind.msg.clone().unwrap_or("An Error was Found".as_bytes().to_vec());
+        let msg = kind.msg.clone().unwrap_or("Can't convert to base64".as_bytes().to_vec());
+        EncodeError { msg, kind }
+    }
+
+    #[inline]
+    pub fn new_from_status(status: EncodeStatus) -> EncodeError {
+        let kind = EncodeKind::from(status);
+        let msg = kind.msg.clone().unwrap_or("Can't convert to base64".as_bytes().to_vec());
         EncodeError { msg, kind }
     }
 }
