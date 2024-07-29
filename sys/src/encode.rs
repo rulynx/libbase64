@@ -105,7 +105,9 @@ pub struct base64_encodestate {
 }
 
 #[cfg_attr(any(unix, target_os = "macos"), link(name = "b64"))]
+#[cfg_attr(any(unix, target_os = "macos"), link(name = "b64", kind = "static"))]
 #[cfg_attr(windows, link(name = "libb64"))]
+#[cfg_attr(windows, link(name = "libb64", kind = "static"))]
 extern "C" {
 
     /// # [`base64_init_encodestate`]
