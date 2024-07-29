@@ -4,7 +4,8 @@
 )]
 
 #![feature(
-    deref_pure_trait
+    deref_pure_trait,
+    vec_into_raw_parts
 )]
 
 extern crate libbase64_derive as b64derive;
