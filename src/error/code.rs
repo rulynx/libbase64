@@ -331,3 +331,56 @@ impl From<u128> for DecodeStatus {
         }  
     }
 }
+
+impl Default for EncodeStatus {
+    fn default() -> Self {
+        Self::UNKNOWN
+    }
+}
+
+impl Default for DecodeStatus {
+    fn default() -> Self {
+        Self::UNKNOWN
+    }
+}
+
+impl ::core::fmt::Display for EncodeStatus {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        f.write_str(match self {
+            Self::OK => "OK",
+            Self::ERROR => "ERROR",
+            Self::UNKNOWN => "UNKNOWN",
+        })
+    }
+}
+
+impl ::core::fmt::Display for DecodeStatus {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        f.write_str(match self {
+            Self::OK => "OK",
+            Self::ERROR => "ERROR",
+            Self::UNKNOWN => "UNKNOWN",
+        })
+    }
+}
+
+
+impl ::core::error::Error for EncodeStatus {
+    fn description(&self) -> &str {
+        match self {
+            Self::OK => "OK",
+            Self::ERROR => "ERROR",
+            Self::UNKNOWN => "UNKNOWN",
+        }
+    }
+}
+
+impl ::core::error::Error for DecodeStatus {
+    fn description(&self) -> &str {
+        match self {
+            Self::OK => "OK",
+            Self::ERROR => "ERROR",
+            Self::UNKNOWN => "UNKNOWN",
+        }
+    }
+}
