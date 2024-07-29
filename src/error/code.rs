@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+#![allow(non_camel_case_types)]
 use std::ops::{Deref, DerefMut};
 
 #[derive(Debug, Clone)]
@@ -56,7 +58,7 @@ impl EncodeStatus {
 impl From<isize> for EncodeStatus {
     fn from(value: isize) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -68,7 +70,7 @@ impl From<isize> for EncodeStatus {
 impl From<usize> for EncodeStatus {
     fn from(value: usize) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -93,7 +95,7 @@ impl From<u16> for EncodeStatus {
 impl From<i32> for EncodeStatus {
     fn from(value: i32) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -106,7 +108,7 @@ impl From<i32> for EncodeStatus {
 impl From<u32> for EncodeStatus {
     fn from(value: u32) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -119,7 +121,7 @@ impl From<u32> for EncodeStatus {
 impl From<i64> for EncodeStatus {
     fn from(value: i64) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -132,7 +134,7 @@ impl From<i64> for EncodeStatus {
 impl From<u64> for EncodeStatus {
     fn from(value: u64) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -145,7 +147,7 @@ impl From<u64> for EncodeStatus {
 impl From<i128> for EncodeStatus {
     fn from(value: i128) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -158,7 +160,7 @@ impl From<i128> for EncodeStatus {
 impl From<u128> for EncodeStatus {
     fn from(value: u128) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -223,7 +225,7 @@ impl DecodeStatus {
 impl From<isize> for DecodeStatus {
     fn from(value: isize) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -235,7 +237,7 @@ impl From<isize> for DecodeStatus {
 impl From<usize> for DecodeStatus {
     fn from(value: usize) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -260,7 +262,7 @@ impl From<u16> for DecodeStatus {
 impl From<i32> for DecodeStatus {
     fn from(value: i32) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -273,7 +275,7 @@ impl From<i32> for DecodeStatus {
 impl From<u32> for DecodeStatus {
     fn from(value: u32) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -286,7 +288,7 @@ impl From<u32> for DecodeStatus {
 impl From<i64> for DecodeStatus {
     fn from(value: i64) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -299,7 +301,7 @@ impl From<i64> for DecodeStatus {
 impl From<u64> for DecodeStatus {
     fn from(value: u64) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -312,7 +314,7 @@ impl From<u64> for DecodeStatus {
 impl From<i128> for DecodeStatus {
     fn from(value: i128) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {
@@ -325,7 +327,7 @@ impl From<i128> for DecodeStatus {
 impl From<u128> for DecodeStatus {
     fn from(value: u128) -> Self {
         if value == 0 {
-            return Self::OK;
+            Self::OK
         } else if value == 1 {
             return Self::ERROR;
         } else {

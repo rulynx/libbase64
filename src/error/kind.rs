@@ -441,6 +441,55 @@ impl Error for DecodeKind {
 impl AsRef<str> for EncodeKind {
     #[allow(deprecated)]
     fn as_ref(&self) -> &str {
-        self.description()
+        if let Some(msg) = self.msg.clone() {
+            match ::core::str::from_utf8(&msg) {
+                Ok(m) => return Box::leak(m.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked(&self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked(&self.status) }
+        }
+    }
+}
+
+impl AsMut<str> for EncodeKind {
+    #[allow(deprecated)]
+    fn as_mut(&mut self) -> &mut str {
+        if let Some(mut msg) = self.msg.clone() {
+            match ::core::str::from_utf8_mut(&mut msg) {
+                Ok(m) => return Box::leak(m.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked_mut(&mut self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked_mut(&mut self.status) }
+        }
+    }
+}
+
+impl AsRef<str> for DecodeKind {
+    #[allow(deprecated)]
+    fn as_ref(&self) -> &str {
+        if let Some(msg) = self.msg.clone() {
+            match ::core::str::from_utf8(&msg) {
+                Ok(m) => return Box::leak(m.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked(&self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked(&self.status) }
+        }
+    }
+}
+
+impl AsMut<str> for DecodeKind {
+    #[allow(deprecated)]
+    fn as_mut(&mut self) -> &mut str {
+        if let Some(mut msg) = self.msg.clone() {
+            match ::core::str::from_utf8_mut(&mut msg) {
+                Ok(m) => return Box::leak(m.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked_mut(&mut self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked_mut(&mut self.status) }
+        }
     }
 }
