@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 #[derive(Debug, Clone)]
 pub enum EncodeStatus {
     OK,
@@ -381,6 +383,111 @@ impl ::core::error::Error for DecodeStatus {
             Self::OK => "OK",
             Self::ERROR => "ERROR",
             Self::UNKNOWN => "UNKNOWN",
+        }
+    }
+}
+
+impl ::core::ops::Deref for EncodeStatus {
+    type Target = [u8];
+
+    fn deref(&self) -> &Self::Target {
+        match self {
+            Self::OK => b"OK",
+            Self::ERROR => b"ERROR",
+            Self::UNKNOWN => b"UNKNOWN",
+        }
+    }
+}
+
+impl ::core::ops::DerefMut for EncodeStatus {
+
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        let mut res = self.deref().to_vec();
+        let boxed = res.into_boxed_slice();
+        Box::leak(boxed)
+    }
+}
+
+impl ::core::ops::Deref for DecodeStatus {
+    type Target = [u8];
+
+    fn deref(&self) -> &Self::Target {
+        match self {
+            Self::OK => b"OK",
+            Self::ERROR => b"ERROR",
+            Self::UNKNOWN => b"UNKNOWN",
+        }
+    }
+}
+
+impl ::core::ops::DerefMut for DecodeStatus {
+    
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        let mut res = self.deref().to_vec();
+        let boxed = res.into_boxed_slice();
+        Box::leak(boxed)
+    }
+}
+
+unsafe impl ::core::ops::DerefPure for EncodeStatus {}
+unsafe impl ::core::ops::DerefPure for DecodeStatus {}
+
+impl AsRef<[u8]> for EncodeStatus {
+    fn as_ref(&self) -> &[u8] {
+        self.deref()
+    }
+}
+
+impl AsMut<[u8]> for EncodeStatus {
+    fn as_mut(&mut self) -> &mut [u8] {
+        self.deref_mut()
+    }
+}
+
+impl AsRef<[u8]> for DecodeStatus {
+    fn as_ref(&self) -> &[u8] {
+        self.deref()
+    }
+}
+
+impl AsMut<[u8]> for DecodeStatus {
+    fn as_mut(&mut self) -> &mut [u8] {
+        self.deref_mut()
+    }
+}
+
+impl AsRef<str> for EncodeStatus {
+    fn as_ref(&self) -> &str {
+        match ::core::str::from_utf8(self.as_ref()) {
+            Ok(s) => s,
+            Err(_) => unreachable!(),
+        }
+    }
+}
+
+impl AsMut<str> for EncodeStatus {
+    fn as_mut(&mut self) -> &mut str {
+        match ::core::str::from_utf8_mut(self.as_mut()) {
+            Ok(s) => s,
+            Err(_) => unreachable!(),
+        }
+    }
+}
+
+impl AsRef<str> for DecodeStatus {
+    fn as_ref(&self) -> &str {
+        match ::core::str::from_utf8(self.as_ref()) {
+            Ok(s) => s,
+            Err(_) => unreachable!(),
+        }
+    }
+}
+
+impl AsMut<str> for DecodeStatus {
+    fn as_mut(&mut self) -> &mut str {
+        match ::core::str::from_utf8_mut(self.as_mut()) {
+            Ok(s) => s,
+            Err(_) => unreachable!(),
         }
     }
 }
