@@ -14,7 +14,7 @@ use ::walkdir::WalkDir;
 fn find<P: AsRef<Path>>(root: P, file: &str) -> Option<PathBuf> {
     for e in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
         if e.file_name() == file {
-            return Some(e.into_path());
+            return e.path().parent().map(|p| p.to_path_buf());
         }
     }
     None
