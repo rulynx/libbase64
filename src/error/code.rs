@@ -4,9 +4,9 @@ use std::ops::{Deref, DerefMut};
 
 #[derive(Debug, Clone)]
 pub enum EncodeStatus {
-    OK,
-    ERROR,
-    UNKNOWN
+    Ok,
+    Error,
+    Unknown
 }
 
 impl EncodeStatus {
@@ -20,36 +20,36 @@ impl EncodeStatus {
     #[inline]
     pub const fn is_ok(&self) -> bool {
         match self {
-            Self::OK => true,
-            Self::ERROR => false,
-            Self::UNKNOWN => false,
+            Self::Ok => true,
+            Self::Error => false,
+            Self::Unknown => false,
         }
     }
 
     #[inline]
     pub const fn is_error(&self) -> bool {
         match self {
-            Self::OK => false,
-            Self::ERROR => true,
-            Self::UNKNOWN => false,
+            Self::Ok => false,
+            Self::Error => true,
+            Self::Unknown => false,
         }
     }
 
     #[inline]
     pub const fn is_unknown(&self) -> bool {
         match self {
-            Self::OK => false,
-            Self::ERROR => false,
-            Self::UNKNOWN => true,
+            Self::Ok => false,
+            Self::Error => false,
+            Self::Unknown => true,
         }
     }
 
     #[inline]
     pub const fn code(&self) -> isize {
         match self {
-            Self::OK => 0,
-            Self::ERROR => 1,
-            Self::UNKNOWN => 2,
+            Self::Ok => 0,
+            Self::Error => 1,
+            Self::Unknown => 2,
         }
     }
 
@@ -58,11 +58,11 @@ impl EncodeStatus {
 impl From<isize> for EncodeStatus {
     fn from(value: isize) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN
+            return Self::Unknown
         }
     }
 }
@@ -70,11 +70,11 @@ impl From<isize> for EncodeStatus {
 impl From<usize> for EncodeStatus {
     fn from(value: usize) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN
+            return Self::Unknown
         } 
     }
 }
@@ -95,11 +95,11 @@ impl From<u16> for EncodeStatus {
 impl From<i32> for EncodeStatus {
     fn from(value: i32) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }
     }
 }
@@ -108,11 +108,11 @@ impl From<i32> for EncodeStatus {
 impl From<u32> for EncodeStatus {
     fn from(value: u32) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }
     }
 }
@@ -121,11 +121,11 @@ impl From<u32> for EncodeStatus {
 impl From<i64> for EncodeStatus {
     fn from(value: i64) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -134,11 +134,11 @@ impl From<i64> for EncodeStatus {
 impl From<u64> for EncodeStatus {
     fn from(value: u64) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -147,11 +147,11 @@ impl From<u64> for EncodeStatus {
 impl From<i128> for EncodeStatus {
     fn from(value: i128) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -160,20 +160,20 @@ impl From<i128> for EncodeStatus {
 impl From<u128> for EncodeStatus {
     fn from(value: u128) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
 
 #[derive(Debug, Clone)]
 pub enum DecodeStatus {
-    OK,
-    ERROR,
-    UNKNOWN
+    Ok,
+    Error,
+    Unknown
 }
 
 impl DecodeStatus {
@@ -187,36 +187,36 @@ impl DecodeStatus {
     #[inline]
     pub const fn is_ok(&self) -> bool {
         match self {
-            Self::OK => true,
-            Self::ERROR => false,
-            Self::UNKNOWN => false,
+            Self::Ok => true,
+            Self::Error => false,
+            Self::Unknown => false,
         }
     }
 
     #[inline]
     pub const fn is_error(&self) -> bool {
         match self {
-            Self::OK => false,
-            Self::ERROR => true,
-            Self::UNKNOWN => false,
+            Self::Ok => false,
+            Self::Error => true,
+            Self::Unknown => false,
         }
     }
 
     #[inline]
     pub const fn is_unknown(&self) -> bool {
         match self {
-            Self::OK => false,
-            Self::ERROR => false,
-            Self::UNKNOWN => true,
+            Self::Ok => false,
+            Self::Error => false,
+            Self::Unknown => true,
         }
     }
 
     #[inline]
     pub const fn code(&self) -> isize {
         match self {
-            Self::OK => 0,
-            Self::ERROR => 1,
-            Self::UNKNOWN => 2,
+            Self::Ok => 0,
+            Self::Error => 1,
+            Self::Unknown => 2,
         }
     }
 
@@ -225,11 +225,11 @@ impl DecodeStatus {
 impl From<isize> for DecodeStatus {
     fn from(value: isize) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN
+            return Self::Unknown
         }
     }
 }
@@ -237,11 +237,11 @@ impl From<isize> for DecodeStatus {
 impl From<usize> for DecodeStatus {
     fn from(value: usize) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN
+            return Self::Unknown
         } 
     }
 }
@@ -262,11 +262,11 @@ impl From<u16> for DecodeStatus {
 impl From<i32> for DecodeStatus {
     fn from(value: i32) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }
     }
 }
@@ -275,11 +275,11 @@ impl From<i32> for DecodeStatus {
 impl From<u32> for DecodeStatus {
     fn from(value: u32) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }
     }
 }
@@ -288,11 +288,11 @@ impl From<u32> for DecodeStatus {
 impl From<i64> for DecodeStatus {
     fn from(value: i64) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -301,11 +301,11 @@ impl From<i64> for DecodeStatus {
 impl From<u64> for DecodeStatus {
     fn from(value: u64) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -314,11 +314,11 @@ impl From<u64> for DecodeStatus {
 impl From<i128> for DecodeStatus {
     fn from(value: i128) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
@@ -327,33 +327,33 @@ impl From<i128> for DecodeStatus {
 impl From<u128> for DecodeStatus {
     fn from(value: u128) -> Self {
         if value == 0 {
-            Self::OK
+            Self::Ok
         } else if value == 1 {
-            return Self::ERROR;
+            return Self::Error;
         } else {
-            return Self::UNKNOWN;
+            return Self::Unknown;
         }  
     }
 }
 
 impl Default for EncodeStatus {
     fn default() -> Self {
-        Self::UNKNOWN
+        Self::Unknown
     }
 }
 
 impl Default for DecodeStatus {
     fn default() -> Self {
-        Self::UNKNOWN
+        Self::Unknown
     }
 }
 
 impl ::core::fmt::Display for EncodeStatus {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         f.write_str(match self {
-            Self::OK => "OK",
-            Self::ERROR => "ERROR",
-            Self::UNKNOWN => "UNKNOWN",
+            Self::Ok => "Ok",
+            Self::Error => "Error",
+            Self::Unknown => "Unknown",
         })
     }
 }
@@ -361,9 +361,9 @@ impl ::core::fmt::Display for EncodeStatus {
 impl ::core::fmt::Display for DecodeStatus {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         f.write_str(match self {
-            Self::OK => "OK",
-            Self::ERROR => "ERROR",
-            Self::UNKNOWN => "UNKNOWN",
+            Self::Ok => "Ok",
+            Self::Error => "Error",
+            Self::Unknown => "Unknown",
         })
     }
 }
@@ -372,9 +372,9 @@ impl ::core::fmt::Display for DecodeStatus {
 impl ::core::error::Error for EncodeStatus {
     fn description(&self) -> &str {
         match self {
-            Self::OK => "OK",
-            Self::ERROR => "ERROR",
-            Self::UNKNOWN => "UNKNOWN",
+            Self::Ok => "Ok",
+            Self::Error => "Error",
+            Self::Unknown => "Unknown",
         }
     }
 }
@@ -382,9 +382,9 @@ impl ::core::error::Error for EncodeStatus {
 impl ::core::error::Error for DecodeStatus {
     fn description(&self) -> &str {
         match self {
-            Self::OK => "OK",
-            Self::ERROR => "ERROR",
-            Self::UNKNOWN => "UNKNOWN",
+            Self::Ok => "Ok",
+            Self::Error => "Error",
+            Self::Unknown => "Unknown",
         }
     }
 }
@@ -394,9 +394,9 @@ impl ::core::ops::Deref for EncodeStatus {
 
     fn deref(&self) -> &Self::Target {
         match self {
-            Self::OK => b"OK",
-            Self::ERROR => b"ERROR",
-            Self::UNKNOWN => b"UNKNOWN",
+            Self::Ok => b"Ok",
+            Self::Error => b"Error",
+            Self::Unknown => b"Unknown",
         }
     }
 }
@@ -415,9 +415,9 @@ impl ::core::ops::Deref for DecodeStatus {
 
     fn deref(&self) -> &Self::Target {
         match self {
-            Self::OK => b"OK",
-            Self::ERROR => b"ERROR",
-            Self::UNKNOWN => b"UNKNOWN",
+            Self::Ok => b"Ok",
+            Self::Error => b"Error",
+            Self::Unknown => b"Unknown",
         }
     }
 }
