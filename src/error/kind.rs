@@ -302,8 +302,8 @@ impl DecodeKind {
 
     
     #[inline]
-    pub fn new(code: isize, msg: &'static str) -> EncodeKind {
-        EncodeKind { status: EncodeStatus::from(code), msg: Some(msg.as_bytes().to_vec()) }
+    pub fn new(code: isize, msg: &'static str) -> DecodeKind {
+        DecodeKind { status: DecodeStatus::from(code), msg: Some(msg.as_bytes().to_vec()) }
     }
 
     #[inline]
