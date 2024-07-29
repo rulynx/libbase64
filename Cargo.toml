@@ -34,22 +34,18 @@ libc = "0.2.155"
 opt-level = 0
 lto = false
 overflow-checks = true
-rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
 
 [profile.test]
 opt-level = 1
 lto = false
 overflow-checks = true
-rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
 
 [profile.release]
 opt-level = 3
 lto = true
 overflow-checks = false
-rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
 
 [profile.bench]
 opt-level = 2
 lto = true
 overflow-checks = true
-rustflags = ["-Z", "unstable-options", "-Z", "next-solver"]
