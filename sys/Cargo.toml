@@ -1,5 +1,10 @@
 [package]
 name = "libbase64-sys"
+description = "An FFI Binding to libb64, cencode.h and cdecode.h"
+authors = ["Kevin Alexander Krefting <alexgame314@outlook.com>"]
+repository = "https://github.com/rulynx/libbase64"
+license = "Public Domain"
+keywords = ["base64", "ffi", "binding", "c", "sys"]
 version = "0.0.0"
 edition = "2021"
 
@@ -21,3 +26,4 @@ libc = "0.2.155"
 [build-dependencies]
 libc = "0.2.155"
 walkdir = "2.5.0"
+
