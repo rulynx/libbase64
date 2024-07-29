@@ -59,7 +59,6 @@ fn main() {
                 // Die variante mit : stat :: ist veraltet und rustc reagiert nicht mehr korrekt darauf.
                 println!("cargo::rustc-link-search={}", path.to_str().unwrap());
                 println!("cargo::rustc-link-lib=static=b64");
-                println!("cargo::rustc-link-lib=native=b64");
             }
             
             if find(p.clone(), "libb64.so").is_some() {
@@ -68,7 +67,6 @@ fn main() {
                 let path = find(p.clone(), "libb64.so").unwrap();
                 println!("cargo::rustc-link-search={}", path.to_str().unwrap());
                 println!("cargo::rustc-link-lib=dylib=b64");
-                println!("cargo::rustc-link-lib=cdylib=b64");
             }
 
             if !found || count == 0 {
@@ -85,7 +83,6 @@ fn main() {
                 let path = find(p.clone(), "libb64.lib").unwrap();
                 println!("cargo::rustc-link-search={}", path.to_str().unwrap());
                 println!("cargo::rustc-link-lib=static=b64");
-                println!("cargo::rustc-link-lib=native=b64");
             }
 
             if find(p.clone(), "libb64.dll").is_some() {
@@ -94,7 +91,6 @@ fn main() {
                 let path = find(p.clone(), "libb64.dll").unwrap();
                 println!("cargo::rustc-link-search={}", path.to_str().unwrap());
                 println!("cargo::rustc-link-lib=dylib=b64");
-                println!("cargo::rustc-link-lib=cdylib=b64");
             }
 
             if !found || count == 0 {
