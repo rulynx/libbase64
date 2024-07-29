@@ -275,4 +275,172 @@ impl EncodeKind {
         }
     }
 
+    #[inline]
+    pub fn handle_print(&self) {
+        if let Some(msg) = self.msg.clone() {
+            eprintln!("{}", String::from_utf8_lossy(&msg));
+        } else {
+            eprintln!("{}", self.status);
+        }
+    }
+
+    #[inline]
+    pub fn exit_with_msg(&self) -> ! {
+        self.handle_print();
+        self.handle_exit();
+    }
+
+    #[inline]
+    pub fn abort_with_msg(&self) -> ! {
+        self.handle_print();
+        self.handle_abort();
+    }
+
+}
+
+impl DecodeKind {
+
+    
+    #[inline]
+    pub fn new(code: isize, msg: &'static str) -> EncodeKind {
+        EncodeKind { status: EncodeStatus::from(code), msg: Some(msg.as_bytes().to_vec()) }
+    }
+
+    #[inline]
+    pub const fn is_ok(&self) -> bool {
+        self.status.is_ok()
+    }
+
+    #[inline]
+    pub const fn is_error(&self) -> bool {
+        self.status.is_error()
+    }
+
+    #[inline]
+    pub const fn is_unknown(&self) -> bool {
+        self.status.is_unknown()
+    }
+
+    #[inline]
+    pub const fn code(&self) -> isize {
+        self.status.code()
+    }
+
+    #[inline]
+    pub fn into_boxed_status(self) -> Box<DecodeStatus> {
+        self.status.into_boxed_status()
+    }
+    
+    #[inline]
+    pub fn from_boxed_status(status: Box<DecodeStatus>) -> DecodeKind {
+        let state = Box::leak(status);
+        DecodeKind { status: state.clone(), msg: Some(state.to_vec()) }
+    }
+
+    #[inline]
+    pub fn handle_abort(&self) -> ! {
+        ::std::process::abort();
+    }
+
+    #[inline]
+    pub fn handle_panic(&self) -> ! {
+        if let Some(msg) = self.msg.clone() {
+            panic!("{}", String::from_utf8_lossy(&msg));
+        }
+        panic!("{}", self.status);
+    }
+
+    #[inline]
+    pub fn handle_exit(&self) -> ! {
+        #[cfg(not(target_pointer_width = "16"))]
+        {
+            ::std::process::exit(self.status.code() as i32);
+        }
+        #[cfg(target_pointer_width = "16")]
+        {
+            ::std::process::exit(self.status.code() as i16);
+        }
+    }
+
+    #[inline]
+    pub fn handle_print(&self) {
+        if let Some(msg) = self.msg.clone() {
+            eprintln!("{}", String::from_utf8_lossy(&msg));
+        } else {
+            eprintln!("{}", self.status);
+        }
+    }
+
+    #[inline]
+    pub fn exit_with_msg(&self) -> ! {
+        self.handle_print();
+        self.handle_exit();
+    }
+
+    #[inline]
+    pub fn abort_with_msg(&self) -> ! {
+        self.handle_print();
+        self.handle_abort();
+    }
+}
+
+impl Display for EncodeKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(m) = self.msg.clone() {
+            match ::core::str::from_utf8(&m) {
+                Ok(msg) => f.write_str(msg),
+                Err(_) => f.write_str(unsafe { ::core::str::from_utf8_unchecked(&self.status) }),
+            }
+        } else {
+            f.write_str(unsafe { ::core::str::from_utf8_unchecked(&self.status) })
+        }
+    }
+}
+
+impl Display for DecodeKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(m) = self.msg.clone() {
+            match ::core::str::from_utf8(&m) {
+                Ok(msg) => f.write_str(msg),
+                Err(_) => f.write_str(unsafe { ::core::str::from_utf8_unchecked(&self.status) }),
+            }
+        } else {
+            f.write_str(unsafe { ::core::str::from_utf8_unchecked(&self.status) })
+        }
+    }
+}
+
+impl Error for EncodeKind {
+    #[allow(deprecated)]
+    fn description(&self) -> &str {
+        if let Some(m) = self.msg.clone() {
+            match ::core::str::from_utf8(&m) {
+                Ok(msg) => return Box::leak(msg.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked(&self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked(&self.status) }
+        }
+    }
+}
+
+impl Error for DecodeKind {
+    #[allow(deprecated)]
+    fn description(&self) -> &str {
+        if let Some(m) = self.msg.clone() {
+            match ::core::str::from_utf8(&m) {
+                Ok(msg) => return Box::leak(msg.to_string().into_boxed_str()),
+                Err(_) => return unsafe { ::core::str::from_utf8_unchecked(&self.status) },
+            }
+        } else {
+            return unsafe { ::core::str::from_utf8_unchecked(&self.status) }
+        }
+    }
+}
+
+impl AsRef<str> for EncodeKind {
+    #[allow(deprecated)]
+    fn as_ref(&self) -> &str {
+        self.description()
+    }
 }
