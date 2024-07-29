@@ -6,8 +6,8 @@ use crate::core::fmt::Display;
 
 #[derive(Debug, Clone, Default)]
 pub struct EncodeKind {
-    status: EncodeStatus,
-    msg: Option<Vec<u8>>,
+    pub(crate) status: EncodeStatus,
+    pub(crate) msg: Option<Vec<u8>>,
 }
 
 impl From<EncodeStatus> for EncodeKind {
@@ -94,8 +94,8 @@ impl From<u128> for EncodeKind {
 
 #[derive(Debug, Clone, Default)]
 pub struct DecodeKind {
-    status: DecodeStatus,
-    msg: Option<Vec<u8>>,
+    pub(crate) status: DecodeStatus,
+    pub(crate) msg: Option<Vec<u8>>,
 }
 
 impl From<DecodeStatus> for DecodeKind {
