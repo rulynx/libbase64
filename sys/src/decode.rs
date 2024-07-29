@@ -135,14 +135,14 @@ extern "C" {
     )]
     pub fn base64_decode_value(value_in: libc::c_char) -> libc::c_int;
 
-    /// # [`base64_encode_block`]
+    /// # [`base64_decode_block`]
     /// =======================
     /// 
     /// ## Metadata
     /// 
     /// |  **Meta Key**  |  **Meta Value**             |
     /// |----------------|-----------------------------|
-    /// |  **Name:**     | [`base64_encode_block`]     |
+    /// |  **Name:**     | [`base64_decode_block`]     |
     /// |  **Type:**     | `function`                  |
     /// |  **Since:**    | 0.1.0                       |
     /// |  **Category:** | unsafe, extern, C           |
