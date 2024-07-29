@@ -1,6 +1,11 @@
 [package]
 name = "libbase64"
-version = "0.1.0"
+description = "A full and safe Rust API Wrapper arround libbase64-sys"
+authors = ["Kevin Alexander Krefting <alexgame314@outlook.com>"]
+repository = "https://github.com/rulynx/libbase64"
+license = "Public Domain"
+keywords = ["base64", "ffi", "binding", "c", "sys"]
+version = "0.1.0-alpha.0"
 edition = "2021"
 
 [workspace]
@@ -10,4 +15,4 @@ members = [
 ]
 
 [dependencies]
-libbase64-sys = { version = "0.0.0", path = "./sys" }
+libbase64-sys = { version = "0.1.0-alpha.0", path = "./sys" }

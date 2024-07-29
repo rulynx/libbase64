@@ -4,14 +4,14 @@ version = 3
 
 [[package]]
 name = "libbase64"
-version = "0.1.0"
+version = "0.1.0-alpha.0"
 dependencies = [
  "libbase64-sys",
 ]
 
 [[package]]
 name = "libbase64-sys"
-version = "0.0.0"
+version = "0.1.0-alpha.0"
 dependencies = [
  "libc",
  "walkdir",
