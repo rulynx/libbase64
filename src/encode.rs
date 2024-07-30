@@ -85,4 +85,18 @@ impl StateParser {
         &mut self.state.state
     }
 
+    #[doc(hidden)]
+    fn parse(&mut self) {
+        let state = self.raw_parse();
+        let raw = state.result;
+        unsafe {
+            let slice = ::core::ffi::CStr::from_ptr(raw);
+            let byte = slice.to_bytes();
+            let mut res: Vec<u8> = Vec::with_capacity(byte.len());
+            res.extend_from_slice(byte);
+            self.parsed = Some(res);
+            self.new = false;
+        }
+    }
+
 }
