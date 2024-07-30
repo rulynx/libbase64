@@ -24,6 +24,12 @@ impl From<base64_encodestate> for EncodeState {
     }
 }
 
+impl Default for EncodeState {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl EncodeState {
 
     ///
@@ -58,13 +64,19 @@ impl From<base64_encodestate> for StateParser {
     }
 }
 
+impl Default for StateParser {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl StateParser {
     
     ///
     #[inline]
     pub fn new() -> StateParser {
         let state = EncodeState::new();
-        StateParser { state: state, parsed: None, new: true }
+        StateParser { state, parsed: None, new: true }
     }
 
     ///
@@ -96,6 +108,74 @@ impl StateParser {
             res.extend_from_slice(byte);
             self.parsed = Some(res);
             self.new = false;
+        }
+    }
+
+    ///
+    #[inline]
+    pub fn as_boxed_slice(&mut self) -> Box<[u8]> {
+        if !self.new {
+            if self.parsed.is_none() {
+                self.parse();
+            }
+        }
+
+        if self.new {
+            self.parse();
+        }
+
+        if let Some(msg) = self.parsed.clone() {
+            msg.into_boxed_slice()
+        } else {
+            panic!("No valid matches found, state was broken");
+        }
+    }
+
+    ///
+    #[inline]
+    pub fn as_bytes(&mut self) -> &[u8] {
+        Box::leak(self.as_boxed_slice())
+    }
+
+    ///
+    #[inline]
+    pub fn as_mut_bytes(&mut self) -> &mut [u8] {
+        Box::leak(self.as_boxed_slice())
+    }
+
+    ///
+    #[inline]
+    pub fn as_str(&mut self) -> &str {
+        match ::core::str::from_utf8(self.as_bytes()) {
+            Ok(s) => s,
+            Err(e) => panic!("Invalid UTF-8 sequence: {}. State can't be parsed", e),
+        }
+    }
+
+    ///
+    pub unsafe fn as_str_unchecked(&mut self) -> &str {
+        ::core::str::from_utf8_unchecked(self.as_bytes())
+    }
+
+    ///
+    #[inline]
+    pub fn as_mut_str(&mut self) -> &mut str {
+        match ::core::str::from_utf8_mut(self.as_mut_bytes()) {
+            Ok(s) => s,
+            Err(e) => panic!("Invalid UTF-8 sequence: {}. State can't be parsed", e),
+        }
+    }
+
+    ///
+    pub unsafe fn as_mut_str_unchecked(&mut self) -> &mut str {
+        ::core::str::from_utf8_unchecked_mut(self.as_mut_bytes())
+    }
+
+    ///
+    #[inline]
+    pub fn as_boxed_str(&mut self) -> Box<str> {
+        unsafe {
+            ::std::str::from_boxed_utf8_unchecked(self.as_boxed_slice())
         }
     }
 
