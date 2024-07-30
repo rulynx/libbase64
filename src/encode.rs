@@ -114,10 +114,8 @@ impl StateParser {
     ///
     #[inline]
     pub fn as_boxed_slice(&mut self) -> Box<[u8]> {
-        if !self.new {
-            if self.parsed.is_none() {
-                self.parse();
-            }
+        if !self.new && self.parsed.is_none() {
+            self.parse();
         }
 
         if self.new {
