@@ -21,13 +21,13 @@ pub fn derive_send(token: TokenStream) -> TokenStream {
     let generics = &input.generics;
     let (impl_block, type_block, where_clause) = generics.split_for_impl();
     if where_clause.is_some() {
-        return TokenStream::from(quote! {
+        TokenStream::from(quote! {
             unsafe impl #impl_block ::core::marker::Send for #name #type_block #where_clause.unwrap() {}
-        });
+        })
     } else {
-        return TokenStream::from(quote! {
+        TokenStream::from(quote! {
             unsafe impl #impl_block ::core::marker::Send for #name #type_block {}
-        });
+        })
     }
 }
 
@@ -39,12 +39,12 @@ pub fn derive_sync(token: TokenStream) -> TokenStream {
     let generics = &input.generics;
     let (impl_block, type_block, where_clause) = generics.split_for_impl();
     if where_clause.is_some() {
-        return TokenStream::from(quote! {
+        TokenStream::from(quote! {
             unsafe impl #impl_block ::core::marker::Sync for #name #type_block #where_clause.unwrap() {}
-        });
+        })
     } else {
-        return TokenStream::from(quote! {
+        TokenStream::from(quote! {
             unsafe impl #impl_block ::core::marker::Sync for #name #type_block {}
-        });
+        })
     }
 }

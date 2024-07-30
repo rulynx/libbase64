@@ -15,3 +15,4 @@ extern crate std;
 extern crate core;
 
 pub(crate) mod error;
+pub(crate) mod encode;
