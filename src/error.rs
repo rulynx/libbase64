@@ -126,6 +126,31 @@ impl EncodeError {
             self.kind.exit_with_msg();
         }
     }
+
+    #[inline]
+    pub fn is_status_ok(&self) -> bool {
+        self.kind.is_ok()
+    }
+
+    #[inline]
+    pub fn is_status_error(&self) -> bool {
+        self.kind.is_error()
+    }
+
+    #[inline]
+    pub fn is_status_unknown(&self) -> bool {
+        self.kind.is_unknown()
+    }
+
+    #[inline]
+    pub fn get_status_code(&self) -> isize {
+        self.kind.code()
+    }
+
+    #[inline]
+    pub fn kind(&self) -> EncodeKind {
+        self.kind.clone()
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -247,5 +272,107 @@ impl DecodeError {
         } else {
             self.kind.exit_with_msg();
         }
+    }
+
+    #[inline]
+    pub fn is_status_ok(&self) -> bool {
+        self.kind.is_ok()
+    }
+
+    #[inline]
+    pub fn is_status_error(&self) -> bool {
+        self.kind.is_error()
+    }
+
+    #[inline]
+    pub fn is_status_unknown(&self) -> bool {
+        self.kind.is_unknown()
+    }
+
+    
+    #[inline]
+    pub fn get_status_code(&self) -> isize {
+        self.kind.code()
+    }
+
+    #[inline]
+    pub fn kind(&self) -> DecodeKind {
+        self.kind.clone()
+    }
+}
+
+impl ::core::ops::Deref for EncodeError {
+    type Target = dyn ::core::error::Error;
+
+    fn deref(&self) -> &Self::Target {
+        &self.kind
+    }
+}
+
+impl ::core::ops::DerefMut for EncodeError {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.kind
+    }
+}
+
+impl ::core::ops::Deref for DecodeError {
+    type Target = dyn ::core::error::Error;
+
+    fn deref(&self) -> &Self::Target {
+        &self.kind
+    }
+}
+
+impl ::core::ops::DerefMut for DecodeError {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.kind
+    }
+}
+
+unsafe impl ::core::ops::DerefPure for EncodeError {}
+unsafe impl ::core::ops::DerefPure for DecodeError {}
+
+impl AsRef<str> for EncodeError {
+
+    #[allow(deprecated)]
+    fn as_ref(&self) -> &str {
+        if let Some(msg) = self.msg.clone() {
+            match ::core::str::from_utf8(&msg) {
+                Ok(msg) => Box::leak(msg.to_string().into_boxed_str()),
+                Err(_) => self.kind.description(),
+            }
+        } else {
+            self.kind.description()
+        }
+    }
+}
+
+impl AsMut<str> for EncodeError {
+    fn as_mut(&mut self) -> &mut str {
+        let or: &str = self.as_ref();
+        Box::leak(or.to_string().into_boxed_str())
+    }
+}
+
+
+impl AsRef<str> for DecodeError {
+
+    #[allow(deprecated)]
+    fn as_ref(&self) -> &str {
+        if let Some(msg) = self.msg.clone() {
+            match ::core::str::from_utf8(&msg) {
+                Ok(msg) => Box::leak(msg.to_string().into_boxed_str()),
+                Err(_) => self.kind.description(),
+            }
+        } else {
+            self.kind.description()
+        }
+    }
+}
+
+impl AsMut<str> for DecodeError {
+    fn as_mut(&mut self) -> &mut str {
+        let or: &str = self.as_ref();
+        Box::leak(or.to_string().into_boxed_str())
     }
 }
